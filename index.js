@@ -33,11 +33,13 @@ function setup() {
 }
 let placeholder = `
 // arguments is a reserved word, and will always be of the type [color, x, y]
-// rgba is an array of 4 values - red, green, blue and alpha
-// (x, y) goes from top-left (0, 0) to bottom right (1, 1)
-let color = arguments[0]
-let x = arguments[1]
-let y = arguments[2]
+let color = arguments[0] // Array of 4 values - [r, g, b, a]
+let r = color[0]
+let g = color[1]
+let b = color[2]
+let a = color[3]
+let x = arguments[1] // Goes from left (0) to right (1)
+let y = arguments[2] // Goes from top (0) to bottom (1)
 
 // Always return an array of 4 values: [red, green, blue, alpha]
 return [255, 255*x, 255*y, 255]
