@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        if(navigator.serviceWorker) {
+            navigator.serviceWorker.register("sw.js")
+        }
+    </script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Manipulation</title>
+
+    <!-- Code Mirror -->
+    <link rel="stylesheet" href="codemirror/lib/codemirror.css">
+    <link rel="stylesheet" href="codemirror/theme/midnight.css">
+    <script src="codemirror/lib/codemirror.js" defer></script>
+    <script src="codemirror/mode/javascript/javascript.js" defer></script>
+    <script src="codemirror/addon/edit/closetag.js" defer></script>
+    <script src="codemirror/addon/edit/closebrackets.js" defer></script>
+    <script src="codemirror/addon/edit/matchbrackets.js" defer></script>
+    <script src="codemirror/addon/edit/matchtags.js" defer></script>
+    <script src="codemirror/addon/edit/trailingspace.js" defer></script>
+    <script src="codemirror/addon/hint/javascript-hint.js" defer></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="index.css">
+
+    <!-- JS -->
+    <script src="canvas.js" defer></script>
+    <script src="index.js" defer></script>
+</head>
+<body>
+    <div id="page">
+        <form action=""></form>
+        <section class="section-images collapse-container">
+            <section class="section-upload collapse-box">
+                <header>Uploaded Image</header>
+                <section class="collapsible">
+                    <div class="image-container">
+                        <input type="file" id="input-upload-image"  accept="image/*" onchange="upload_image(this)" hidden/>
+                        <img id="uploaded-image" hidden src="" alt="">
+                    </div>
+                </section>
+            </section>
+            <section class="section-generated collapse-box">
+                <header>Processed Image</header>
+                <section class="collapsible">
+                    <div class="image-container">
+                        <canvas></canvas>
+                    </div>
+                </section>
+            </section>
+        </section>
+        <section class="section-editing collapse-container">
+            <section class="section-editor collapse-box">
+                <header>Editor</header>
+                <section class="collapsible">
+                    <textarea id="textarea"></textarea>
+                </section>
+            </section>
+            <section class="section-bruh collapse-box">
+                <header>Execution</header>
+                <section class="collapsible">
+                </section>
+            </section>
+        </section>
+
+        <!-- <textarea id="textarea"></textarea>
+        <button onclick="run()" style="font-size: 2em;">Run</button>-->
+    </div>
+</body>
+</html>
