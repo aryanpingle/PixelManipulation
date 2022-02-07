@@ -25,6 +25,10 @@ class Canvas {
     setSize(width, height) {
         this.CANVAS.width = width
         this.CANVAS.height = height
+
+        this.indices = Array(this.CANVAS.height).fill(0).map((val, row_index) => {
+            return Array(this.CANVAS.width).fill(0).map((val, column_index) => column_index + row_index * this.CANVAS.width)
+        })
     }
 
     /**
@@ -35,11 +39,11 @@ class Canvas {
     }
 
     get_index(x, y) {
-        return x + this.CANVAS.width * y
+        return this.indices[y][x]
     }
 
     get_pixel(x, y) {
-        return this.image_data.data.slice(this.get_index(x, y) * 4, this.get_index(x, y) * 4 + 4)
+        return this.image_data.data.slice(this.indices[y][x] * 4, this.indices[y][x] * 4 + 4)
     }
 
     set_pixel(x, y, rgba=[0, 0, 0, 0]) {
@@ -48,7 +52,7 @@ class Canvas {
         }
         
         for(this.util_i = 0; this.util_i < 4; ++this.util_i) {
-            this.image_data.data[(x + this.CANVAS.width * y) * 4 + this.util_i] = rgba[this.util_i]
+            this.image_data.data[this.indices[y][x] * 4 + this.util_i] = rgba[this.util_i]
         }
     
         return true

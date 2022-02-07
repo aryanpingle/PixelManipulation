@@ -32,8 +32,9 @@ function setup() {
     image.onload = setup_canvas
 }
 let placeholder = `
-// arguments is a reserved word, and will always be of the type [color, x, y, image_width, image_height]
+// arguments is a reserved word, and will always be of the type [color, x, y]
 // rgba is an array of 4 values - red, green, blue and alpha
+// (x, y) goes from top-left (0, 0) to bottom right (1, 1)
 let color = arguments[0]
 let x = arguments[1]
 let y = arguments[2]
@@ -72,12 +73,7 @@ function run() {
     setup_canvas()
     let stime = new Date()
     let f = new Function(editor.getValue())
-    // canvas.pixels_map((color, x, y) => f.call(null, color, x, y))
-    for(let x = 0; x < canvas.CANVAS.width; ++x) {
-        for(let y = 0; y < canvas.CANVAS.height; ++y) {
-            canvas.set_pixel(x, y, f(canvas.get_pixel(x, y), x / canvas.CANVAS.width, y / canvas.CANVAS.height))
-        }
-    }
+    canvas.pixels_map((color, x, y) => f.call(null, color, x, y))
     canvas.paint()
     print(`Time taken: ${new Date() - stime}ms`)
 }
