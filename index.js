@@ -42,7 +42,7 @@ let x = arguments[1] // Goes from left (0) to right (1)
 let y = arguments[2] // Goes from top (0) to bottom (1)
 
 // Always return an array of 4 values: [red, green, blue, alpha]
-return [255, 255*x, 255*y, 255]
+return color
 `.trim()
 
 function setup_editor() {
