@@ -34,10 +34,12 @@ function setup() {
 let placeholder = `
 // arguments is a reserved word, and will always be of the type [color, x, y, image_width, image_height]
 // rgba is an array of 4 values - red, green, blue and alpha
-let [color, x, y] = arguments
+let color = arguments[0]
+let x = arguments[1]
+let y = arguments[2]
 
 // Always return an array of 4 values: [red, green, blue, alpha]
-return [255, 255*x, 255*y]
+return [255, 255*x, 255*y, 255]
 `.trim()
 
 function setup_editor() {
