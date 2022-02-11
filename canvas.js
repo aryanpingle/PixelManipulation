@@ -57,21 +57,33 @@ class Canvas {
     
         return true
     }
-    
-    pixels_map(callback = (color, x, y) => color) {
-        for(this.util_y = 0; this.util_y < this.CANVAS.height; ++this.util_y) {
-            for(this.util_x = 0; this.util_x < this.CANVAS.width; ++this.util_x) {
-                this.set_pixel(this.util_x, this.util_y, callback(this.get_pixel(this.util_x, this.util_y), this.util_x / this.CANVAS.width, this.util_y / this.CANVAS.height))
-            }
+
+    pixels_map_worker(callback_text) {
+        let stime = new Date()
+        const worker = new Worker("workers/pixel_manipulation.js")
+        worker.onmessage = message => {
+            this.image_data = message.data
+            this.paint()
+            print(`Time taken: ${new Date() - stime}ms`)
+
+            worker.terminate()
         }
+
+        worker.postMessage([this.image_data, callback_text, "map"], [this.image_data.data.buffer])
     }
-    
-    pixels_foreach(callback = (color, x, y) => color) {
-        for(this.util_y = 0; this.util_y < this.CANVAS.height; ++this.util_y) {
-            for(this.util_x = 0; this.util_x < this.CANVAS.width; ++this.util_x) {
-                callback(this.get_pixel(this.util_x, this.util_y), this.util_x, this.util_y)
-            }
+
+    pixels_foreach_worker(callback_text) {
+        let stime = new Date()
+        const worker = new Worker("workers/pixel_manipulation.js")
+        worker.onmessage = message => {
+            this.image_data = message.data
+            this.paint()
+            print(`Time taken: ${new Date() - stime}ms`)
+
+            worker.terminate()
         }
+
+        worker.postMessage([this.image_data, callback_text, "foreach"], [this.image_data.data.buffer])
     }
     
     paint() {

@@ -9,7 +9,7 @@
 const DOCUMENT_CACHE_NAME = `DOC`
 var DOCUMENT_CACHE = null
 // Resource Cache is a cache of almost always static resources - images, fonts, and everything in the Texts folder
-const RESOURCE_VERSION = 1.00
+const RESOURCE_VERSION = 2.00
 const RESOURCE_CACHE_NAME = `RESv${RESOURCE_VERSION.toFixed(2)}`
 var RESOURCE_CACHE = null
 

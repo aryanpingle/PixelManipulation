@@ -159,3 +159,23 @@ body {
     height: 100%;
     font-size: 2em;
 }
+
+#button-run {
+    width: 100%;
+    height: auto;
+    padding: 1em 1em;
+    font-weight: 900;
+    text-transform: uppercase;
+    text-align: left;
+    font-size: 2em;
+    color: black;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    background-color: greenyellow;
+    transition: background-color 250ms ease;
+}
+
+#button-run:hover {
+    background-color: rgb(198, 255, 112);
+}

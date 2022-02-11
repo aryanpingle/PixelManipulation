@@ -74,10 +74,7 @@ function upload_image(input_element) {
 function run() {
     setup_canvas()
     let stime = new Date()
-    let f = new Function(editor.getValue())
-    canvas.pixels_map((color, x, y) => f.call(null, color, x, y))
-    canvas.paint()
-    print(`Time taken: ${new Date() - stime}ms`)
+    canvas.pixels_map_worker(editor.getValue())
 }
 
 setup()
