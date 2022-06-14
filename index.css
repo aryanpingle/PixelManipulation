@@ -224,8 +224,12 @@ button {
     background-color: hsl(150, 100%, 50%);
 }
 
-#button-save-image:hover {
+#button-download:hover {
     background-color: hsl(200, 100%, 50%);
+}
+
+#button-save-progress:hover {
+    background-color: rgb(255, 0, 128);
 }
 
 button img {
