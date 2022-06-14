@@ -25,6 +25,8 @@ let a = color[3]
 let x = arguments[1] // Goes from left (0) to right (1)
 let y = arguments[2] // Goes from top (0) to bottom (1)
 
+const gs = (r+g+b) / 3 // Greyscale value that goes from 0 to 255
+
 // Always return an array of 4 values: [red, green, blue, alpha]
 return color
 `.trim()
