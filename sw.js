@@ -19,7 +19,7 @@ String.prototype.containsAny = function (substrings=[]) {
 }
 
 // For Debugging
-STOP_CACHING = false // true for testing, false for public
+STOP_CACHING = self.registration.scope.includes("127.0.0.1") // true for testing, false for public
 var log = (text, color="white") => console.log(`%c${text}`, `color: black; background-color: ${color};`)
 log = e => e // Comment while testing
 

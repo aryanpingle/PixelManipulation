@@ -8,6 +8,7 @@ const create_html = (html_string) => new DOMParser().parseFromString(html_string
 
 let textarea = null
 let editor = null
+const editor_progress_id = "editor-progress"
 
 let upload_area = document.querySelector(".upload-area")
 
@@ -130,4 +131,9 @@ function save_image() {
     HIDDEN_DOWNLOAD_LINK_ELEMENT.setAttribute('download', `${image_name} - processed.png`);
     HIDDEN_DOWNLOAD_LINK_ELEMENT.setAttribute('href', canvas.CANVAS.toDataURL("image/png").replace("image/png", "image/octet-stream"));
     HIDDEN_DOWNLOAD_LINK_ELEMENT.click();
+}
+
+function save_progress() {
+    localStorage.setItem(editor_progress_id, editor.getValue())
+    
 }

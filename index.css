@@ -229,7 +229,11 @@ button {
 }
 
 #button-save-progress:hover {
-    background-color: rgb(255, 0, 128);
+    background-color: rgb(255, 196, 0);
+}
+
+#button-reset:hover {
+    background-color: rgb(255, 64, 0);
 }
 
 button img {
