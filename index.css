@@ -24,7 +24,7 @@ html, body {
 
 body {
     margin: 0;
-    background-color: #121212;
+    background-color: #242424;
     position: relative;
 }
 
@@ -57,7 +57,7 @@ body {
 }
 
 .collapse-box {
-    outline: 1px solid #242424;
+    outline: 1px solid #363636;
     flex: 1 1 auto;
     /* background-color: black; */
     display: flex;
@@ -101,7 +101,6 @@ body {
 }
 
 .collapse-box > .collapsible {
-    /* background-color: #242424; */
     /* height: 0; */
     flex: 1 1 0;
     overflow: hidden;
@@ -123,6 +122,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.section-upload .image-container {
     cursor: pointer;
 }
 
@@ -151,8 +153,10 @@ body {
 
 /* The section with inputs and editor */
 
-.section-editing {
+.section-editor {
+    height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 .CodeMirror {
@@ -160,22 +164,51 @@ body {
     font-size: 2em;
 }
 
-#button-run {
+/* The section with execution UI */
+
+.section-runtime {
+    /* padding: 1em; */
     width: 100%;
     height: auto;
-    padding: 1em 1em;
-    font-weight: 900;
+    /* background-color: red; */
+    display: flex;
+    align-items: stretch;
+}
+
+button {
+    font-weight: 600;
     text-transform: uppercase;
-    text-align: left;
     font-size: 2em;
-    color: black;
-    outline: none;
+    text-align: center;
     border: none;
+    outline: none;
+    padding: 0.5em;
     cursor: pointer;
-    background-color: greenyellow;
+    color: black;
+    background-color: transparent;
     transition: background-color 250ms ease;
+
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #button-run:hover {
-    background-color: rgb(198, 255, 112);
+    background-color: hsl(150, 100%, 50%);
+}
+
+#button-save-image:hover {
+    background-color: hsl(200, 100%, 50%);
+}
+
+button img {
+    filter: invert(0.5);
+    transform: filter 250ms ease;
+    height: 1em;
+}
+
+button:hover img {
+    filter: invert(0);
 }

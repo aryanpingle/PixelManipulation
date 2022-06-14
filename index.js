@@ -11,6 +11,23 @@ let editor = null
 
 let canvas = new Canvas(document.querySelector("canvas"))
 let image = document.querySelector("img#uploaded-image")
+let image_name = ""
+
+const HIDDEN_DOWNLOAD_LINK_ELEMENT = document.createElement("A")
+
+const placeholder = `
+// arguments is a reserved word, and will always be of the type [color, x, y]
+let color = arguments[0] // Array of 4 values - [r, g, b, a]
+let r = color[0]
+let g = color[1]
+let b = color[2]
+let a = color[3]
+let x = arguments[1] // Goes from left (0) to right (1)
+let y = arguments[2] // Goes from top (0) to bottom (1)
+
+// Always return an array of 4 values: [red, green, blue, alpha]
+return color
+`.trim()
 
 function setup() {
     // Setup the upload button
@@ -31,19 +48,8 @@ function setup() {
 
     image.onload = setup_canvas
 }
-let placeholder = `
-// arguments is a reserved word, and will always be of the type [color, x, y]
-let color = arguments[0] // Array of 4 values - [r, g, b, a]
-let r = color[0]
-let g = color[1]
-let b = color[2]
-let a = color[3]
-let x = arguments[1] // Goes from left (0) to right (1)
-let y = arguments[2] // Goes from top (0) to bottom (1)
 
-// Always return an array of 4 values: [red, green, blue, alpha]
-return color
-`.trim()
+setup()
 
 function setup_editor() {
     textarea = document.querySelector("textarea")
@@ -63,6 +69,7 @@ function setup_canvas() {
 }
 
 function upload_image(input_element) {
+    image_name = input_element.files[0].name.replace(/\..*?$/, "")
     // Generate a url from the image
     let url = URL.createObjectURL(input_element.files[0])
     // Set the img#uploaded-image src to that url
@@ -77,4 +84,8 @@ function run() {
     canvas.pixels_map_worker(editor.getValue())
 }
 
-setup()
+function save_image() {
+    HIDDEN_DOWNLOAD_LINK_ELEMENT.setAttribute('download', `${image_name} - processed.png`);
+    HIDDEN_DOWNLOAD_LINK_ELEMENT.setAttribute('href', canvas.CANVAS.toDataURL("image/png").replace("image/png", "image/octet-stream"));
+    HIDDEN_DOWNLOAD_LINK_ELEMENT.click();
+}
