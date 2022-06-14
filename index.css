@@ -119,6 +119,7 @@ body {
 /* The section with images */
 
 .image-container {
+    position: relative;
     width: 100%;
     height: 100%;
     display: flex;
@@ -126,12 +127,36 @@ body {
     align-items: center;
 }
 
-.section-upload .image-container {
+.image-container.upload-area {
     cursor: pointer;
 }
 
-.section-upload .image-container:not(.image-uploaded) {
-    background: url(images/upload.png) center/100px no-repeat;
+.upload-area::after {
+    content: '';
+    position: absolute;
+    z-index: 999;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    background-color: rgba(245, 245, 220, 0.5);
+    background-image: url(images/move.png);
+    background-size: 25%;
+    background-position: center center;
+    background-repeat: no-repeat;
+
+    transition: 250ms ease;
+
+    overflow: hidden;
+}
+
+.upload-area.upload-area--dragenter::after {
+    backdrop-filter: blur(5px);
+    opacity: 1;
+}
+
+.upload-area:not(.image-uploaded) {
+    background: url(images/upload.png) center/25% no-repeat;
 }
 
 .image-container #uploaded-image {
@@ -163,16 +188,14 @@ body {
 
 .CodeMirror {
     height: 100%;
-    font-size: 2em;
+    font-size: 25px;
 }
 
 /* The section with execution UI */
 
 .section-runtime {
-    /* padding: 1em; */
     width: 100%;
     height: auto;
-    /* background-color: red; */
     display: flex;
     align-items: stretch;
 }

@@ -64,26 +64,12 @@ class Canvas {
         worker.onmessage = message => {
             this.image_data = message.data
             this.paint()
-            print(`Time taken: ${new Date() - stime}ms`)
+            print(`Time taken: %c${new Date() - stime}ms`, "color: greenyellow; font-weight: 800;")
 
             worker.terminate()
         }
 
-        worker.postMessage([this.image_data, callback_text, "map"], [this.image_data.data.buffer])
-    }
-
-    pixels_foreach_worker(callback_text) {
-        let stime = new Date()
-        const worker = new Worker("workers/pixel_manipulation.js")
-        worker.onmessage = message => {
-            this.image_data = message.data
-            this.paint()
-            print(`Time taken: ${new Date() - stime}ms`)
-
-            worker.terminate()
-        }
-
-        worker.postMessage([this.image_data, callback_text, "foreach"], [this.image_data.data.buffer])
+        worker.postMessage([this.image_data, callback_text], [this.image_data.data.buffer])
     }
     
     paint() {

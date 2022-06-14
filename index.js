@@ -9,6 +9,8 @@ const create_html = (html_string) => new DOMParser().parseFromString(html_string
 let textarea = null
 let editor = null
 
+let upload_area = document.querySelector(".upload-area")
+
 let canvas = new Canvas(document.querySelector("canvas"))
 let image = document.querySelector("img#uploaded-image")
 let image_name = ""
@@ -32,11 +34,15 @@ return color
 `.trim()
 
 function setup() {
-    // Setup the upload button
-    let upload_element = document.querySelector(".section-upload .image-container")
-    upload_element.onclick = event => {
+    // Setup the upload area
+    upload_area.onclick = event => {
         document.querySelector("#input-upload-image").click()
     }
+    // Add Drag & Drop functionality
+    upload_area.addEventListener("dragenter", upload_dragenter, false)
+    upload_area.addEventListener("dragleave", upload_dragleave, false)
+    upload_area.addEventListener("dragover", preventEvent, false)
+    upload_area.addEventListener("drop", upload_drop, false)
 
     setup_editor()
 
@@ -49,6 +55,40 @@ function setup() {
     })
 
     image.onload = setup_canvas
+}
+
+function preventEvent(event) {
+    event.preventDefault()
+    event.stopPropagation()
+}
+
+function upload_dragenter(event) {
+    preventEvent(event)
+    upload_area.classList.add("upload-area--dragenter")
+}
+
+function upload_dragleave(event) {
+    preventEvent(event)
+    upload_area.classList.remove("upload-area--dragenter")
+}
+
+function upload_drop(event) {
+    print("DROP EVENT", event)
+    preventEvent(event)
+    upload_area.classList.remove("upload-area--dragenter")
+
+    const data = event["dataTransfer"]
+    let txt = data.getData('text')
+    if (data.files.length != 0) {
+        upload_image(data);
+    }
+    else if (valid_extensions.includes(txt.match(/\..*?$/))) {
+        print("Detected: %c URL ", "color:white;background-color:green;text-transform:uppercase;");
+        print(txt);
+    }
+    else {
+        print("Uploaded file/url is invalid");
+    }
 }
 
 setup()
@@ -70,14 +110,14 @@ function setup_canvas() {
     canvas.load_pixels()
 }
 
-function upload_image(input_element) {
-    image_name = input_element.files[0].name.replace(/\..*?$/, "")
+function upload_image(data) {
+    image_name = data.files[0].name.replace(/\..*?$/, "")
     // Generate a url from the image
-    let url = URL.createObjectURL(input_element.files[0])
+    let url = URL.createObjectURL(data.files[0])
     // Set the img#uploaded-image src to that url
     image.src = url
     // Tell the parent that an image has been uploaded
-    input_element.parentElement.classList.add("image-uploaded")
+    upload_area.classList.add("image-uploaded")
 }
 
 function run() {

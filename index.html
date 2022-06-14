@@ -37,7 +37,7 @@
             <section class="section-upload collapse-box">
                 <header>Uploaded Image</header>
                 <section class="collapsible">
-                    <div class="image-container">
+                    <div class="image-container upload-area">
                         <input type="file" id="input-upload-image"  accept="image/*" onchange="upload_image(this)" hidden/>
                         <img id="uploaded-image" hidden src="" alt="">
                     </div>
@@ -57,8 +57,8 @@
                 <textarea id="textarea"></textarea>
             </section>
             <section class="section-runtime">
-                <button id="button-run" onclick="run()"><img src="images/play.png" alt="Run Code"></button>
-                <button id="button-save-image" onclick="save_image()"><img src="images/download.png" alt="Download Image"></button>
+                <button title="Run Code" id="button-run" onclick="run()"><img src="images/play.png" alt="Run Code"></button>
+                <button title="Download Image" id="button-save-image" onclick="save_image()"><img src="images/download.png" alt="Download Image"></button>
             </section>
         </section>
 
