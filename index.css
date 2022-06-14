@@ -229,11 +229,9 @@ button {
 }
 
 button img {
-    filter: invert(0.5);
-    transform: filter 250ms ease;
     height: 1em;
 }
 
 button:hover img {
-    filter: invert(0);
+    mix-blend-mode: difference;
 }
