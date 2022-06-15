@@ -66,6 +66,11 @@ class Canvas {
             this.paint()
             print(`Time taken: %c${new Date() - stime}ms`, "color: greenyellow; font-weight: 800;")
 
+            create_notification({
+                type: "execution",
+                text: `Processed in ${new Date() - stime}ms`
+            })
+
             worker.terminate()
         }
 

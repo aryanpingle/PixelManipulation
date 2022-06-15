@@ -46,6 +46,11 @@ function setup() {
     upload_area.addEventListener("drop", upload_drop, false)
 
     setup_editor()
+    // Load code
+    const previous_code = localStorage.getItem(editor_progress_id)
+    if(previous_code) {
+        editor.setValue(previous_code)
+    }
 
     document.querySelectorAll(".collapse-box").forEach(ele => {
         ele.onclick = event => {
@@ -112,7 +117,7 @@ function setup_canvas() {
 }
 
 function upload_image(data) {
-    image_name = data.files[0].name.replace(/\..*?$/, "")
+    image_name = data.files[0].name.replace(/\.[^\.]*?$/, "")
     // Generate a url from the image
     let url = URL.createObjectURL(data.files[0])
     // Set the img#uploaded-image src to that url
@@ -131,9 +136,39 @@ function save_image() {
     HIDDEN_DOWNLOAD_LINK_ELEMENT.setAttribute('download', `${image_name} - processed.png`);
     HIDDEN_DOWNLOAD_LINK_ELEMENT.setAttribute('href', canvas.CANVAS.toDataURL("image/png").replace("image/png", "image/octet-stream"));
     HIDDEN_DOWNLOAD_LINK_ELEMENT.click();
+
+    create_notification({
+        type: "download",
+        text: `Downloaded '${image_name} - processed.png'`
+    })
 }
 
 function save_progress() {
     localStorage.setItem(editor_progress_id, editor.getValue())
+    // caches.open("")
+
+    create_notification({
+        type: "save-progress",
+        text: `Code has been saved`
+    })
+}
+
+function reset_everything() {
+    editor.setValue(placeholder)
     
+    create_notification({
+        type: "reset",
+        text: `Code has been reset to default`
+    })
+}
+
+function create_notification({ type, text }) {
+    let notification_element = document.createElement("DIV")
+    notification_element.innerHTML = `<div class="notification notification-${type}">${text}</div>`
+    notification_element = notification_element.firstElementChild
+    setTimeout(() => {
+        notification_element.remove()
+    }, 5000)
+
+    document.querySelector(".notification-container").append(notification_element) 
 }
