@@ -5,19 +5,19 @@
 //       Suck it WorkboxJS.      //
 ///////////////////////////////////
 
-const APP_VERSION = 1.30
+const APP_VERSION = 1.31
 
 // Document Cache is a cache of document files - html, js, css, etc
 const DOCUMENT_CACHE_NAME = `DOC`
 var DOCUMENT_CACHE = null
 // Resource Cache is a cache of almost always static resources - images, fonts, and everything in the Texts folder
-const RESOURCE_VERSION = 1.20
+const RESOURCE_VERSION = 1.31
 const RESOURCE_CACHE_NAME = `RESv${RESOURCE_VERSION.toFixed(2)}`
 var RESOURCE_CACHE = null
 
 // Custom extensions
-String.prototype.containsAny = function (substrings=[]) {
-    return substrings.some(substring => this.includes(substring))
+String.prototype.endsWithAny = function (...ends) {
+    return ends.some(end => this.endsWith(end))
 }
 
 // For Debugging
@@ -67,7 +67,7 @@ async function get_request(request_event) {
     }
     
     // Check if the request is for a document
-    if(url.match(/\/$/) || url.containsAny([".html", ".js", ".css"]) && !url.includes(".json")) {
+    if(url.endsWithAny("/", ".html", ".js", ".css") && !"url".includes("codemirror")) {
         /**
         * So here's the game plan:
         * Check if a cache version exists.
@@ -120,8 +120,7 @@ async function get_request(request_event) {
             return network_match
         }
     }
-    // Check if the request is for a resource
-    else if(url.containsAny([".json", "fonts/", "images/", "fonts.googleapis.com"])) {
+    else {
         // Perform a cache request
         let match = await RESOURCE_CACHE.match(request, { ignoreVary: true })
         if (match != undefined && match != null) return match
@@ -129,9 +128,5 @@ async function get_request(request_event) {
         match = await fetch(request)
         RESOURCE_CACHE.put(request, match.clone())
         return match
-    }
-    
-    // Doesn't belong to either cache, so perform a network request
-
-    return await fetch(request)
+    }    
 }
