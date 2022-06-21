@@ -118,6 +118,10 @@ function setup_canvas() {
 
 function upload_image(data) {
     image_name = data.files[0].name.replace(/\.[^\.]*?$/, "")
+
+    // Change window title
+    document.title = `Pixel Manipulation | ${image_name}`
+
     // Generate a url from the image
     let url = URL.createObjectURL(data.files[0])
     // Set the img#uploaded-image src to that url
