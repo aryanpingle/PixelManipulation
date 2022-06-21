@@ -67,7 +67,7 @@ async function get_request(request_event) {
     }
     
     // Check if the request is for a document
-    if(url.endsWithAny("/", ".html", ".js", ".css") && !"url".includes("codemirror")) {
+    if(url.endsWithAny("/", ".html", ".js", ".css") && !url.includes("codemirror")) {
         /**
         * So here's the game plan:
         * Check if a cache version exists.
